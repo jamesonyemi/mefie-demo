@@ -99,8 +99,10 @@ class User extends Authenticatable implements AuthenticatableContract, CanResetP
                 return  $package_type;
             }
         }
+       
 
     }
+
     
     /**
      * The "booted" method of the model.

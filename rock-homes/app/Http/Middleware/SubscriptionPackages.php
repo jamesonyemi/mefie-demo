@@ -15,6 +15,7 @@ class SubscriptionPackages
      */
     public function handle($request, Closure $next, $subscription_type)
     {
+        
         if ( ! $request->user()->CustomerSubscriptionPackage($subscription_type) ) {
             # code...
             return redirect(route('home'));
@@ -23,7 +24,7 @@ class SubscriptionPackages
             route('home');
 
         }
-        
+
         return $next($request);
     }
 }

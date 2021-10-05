@@ -26,4 +26,15 @@ trait SubscriptionTrait
         
     }
 
+    public static function setSubscriptionPackageToBasicIfEmpty():void
+    {
+        # code...
+        \DB::table('users')->whereId(\Auth::user()->id)
+            ->orWhere('pricing_plan_id', '=', null)
+            // ->orWhere('pricing_plan_id', '=', 0)
+            // ->orWhere('pricing_plan_id', '=', '')
+            ->update(array_merge(['pricing_plan_id' => 1]));
+        
+    }
+
 }

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use App\Http\Controllers\PhoneNumberValidation;
 use App\Http\View\Composers\ClientBelongingToAuthUser;
+use App\Http\Middleware\SetSubscriptionToBasicIfEmpty;
 
 
 class AppServiceProvider extends ServiceProvider
@@ -33,5 +34,6 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         //
+        $this->app->singleton(SetSubscriptionPackageToBasicIfEmpty::class);
     }
 }

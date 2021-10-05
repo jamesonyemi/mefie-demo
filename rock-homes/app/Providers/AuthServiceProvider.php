@@ -32,9 +32,11 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
+        
         // define basic subscription plan
         Gate::define('isBasic', function($get_basic_plan) {
-          
+
+            static::setSubscriptionPackageToBasicIfEmpty();
             $get_basic_plan    =   static::getCustomerSubscriptionPlan(); 
 
             return $get_basic_plan->package_type == 'basic';    
@@ -44,6 +46,7 @@ class AuthServiceProvider extends ServiceProvider
         // define standard subscription plan
         Gate::define('isStandard', function($get_standard_plan) {
 
+            static::setSubscriptionPackageToBasicIfEmpty();
             $get_standard_plan    =   static::getCustomerSubscriptionPlan();
 
             return $get_standard_plan->package_type == 'standard';
@@ -53,6 +56,7 @@ class AuthServiceProvider extends ServiceProvider
         // define professional subscription plan
         Gate::define('isProfessional', function($get_professional_plan) {
 
+             static::setSubscriptionPackageToBasicIfEmpty();
             $get_professional_plan    =   static::getCustomerSubscriptionPlan();
 
             return $get_professional_plan->package_type === 'professional';

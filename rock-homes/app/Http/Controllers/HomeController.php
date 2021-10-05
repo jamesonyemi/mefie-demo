@@ -5,11 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Traits\ProjectCounterTrait;
+use App\Traits\SubscriptionTrait;
 use App\Http\Controllers\ReportController;
 
 class HomeController extends Controller
 {
-    use ProjectCounterTrait;
+    use ProjectCounterTrait, SubscriptionTrait;
     
     /**
      * Create a new controller instance.
@@ -28,8 +29,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-       
-       return static::projectCounter('home');
+        static::setSubscriptionPackageToBasicIfEmpty();
+        return static::projectCounter('home');
+
     }
 
     

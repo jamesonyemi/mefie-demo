@@ -34,6 +34,7 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            \App\Http\Middleware\SetSubscriptionToBasicIfEmpty::class,
         ],
 
         'api' => [
@@ -62,6 +63,7 @@ class Kernel extends HttpKernel
         'admin' => \App\Http\Middleware\AdminAuthenticated::class,
         'client'  => \App\Http\Middleware\ClientAuthenticated::class,
         'check-subscription-plan'  => \App\Http\Middleware\SubscriptionPackages::class,
+        // 'default-subscription-to-basic-if-empty'  => \App\Http\Middleware\SetSubscriptionToBasicIfEmpty::class,
 
     ];
 }
