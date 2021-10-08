@@ -30,7 +30,7 @@
                         <div class="form-group col-md-1"></div>
                         <div class="form-group col-md-4">
                             <label for="client">Client</label>
-                            @include('partials.client_to_auth_user.dropdown')       
+                            @include('partials.client_to_auth_user.line_through_dropdown')       
                         </div>
                         <div class="form-group col-md-2"> </div>
                         <div class="form-group col-md-4">
@@ -86,7 +86,7 @@
                                 <div class="col-12">
                                     <div class="row">
                                         <div class="col-sm-3 col-md-3 col-lg-3" style="margin-right:-1.5rem;">
-                                                <img  id="country_flag" class="form-control form-control-sm border-0 ">
+                                                <img  id="country_flag" class="border-0 form-control form-control-sm ">
                                         </div>
                                         <div class="col-sm-3 col-md-3 col-lg-3" style="margin-right:-1.5rem;">
                                             <label for="currency-code" class="mr-5 form-control form-control-sm">

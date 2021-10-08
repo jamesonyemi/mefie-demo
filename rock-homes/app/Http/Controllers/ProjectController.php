@@ -65,10 +65,15 @@ class ProjectController extends Controller
         $regions            =   DB::table('tblregion')->pluck('region', 'rid');
         $regionId           =   DB::table('tblregion')->get()->pluck('rid', 'region');
         $townId             =   DB::table('tbltown')->get()->pluck('tid', 'town');
+
         $titleId            =   DB::table('tbltitle')->get()->pluck('tid', 'salutation');
         $project_status     =   DB::table('tblstatus')->get()->pluck('id', 'status');
+        $project            =   DB::table('tblproject')->pluck("clientid")->toArray();
 
-        return view('projects.create', compact('genders', 'townId','regions', 'regionId', 'project_status','titleId'));
+        $projects_created_by_customer       =   static::allProjectList();
+
+        return view('projects.create', compact('genders', 'townId','regions', 'regionId', 
+                    'project_status','titleId', 'project', 'projects_created_by_customer', ));
         
     }
 
@@ -293,7 +298,7 @@ class ProjectController extends Controller
             ->join('tblstatus', 'tblstatus.id','=', 'tblproject.statusid')
             ->join('tblregion', 'tblregion.rid', '=', 'tblproject.rid')
             ->select('tblproject.rid as region_id', 'tblregion.region', 'tbltown.tid as location_id', 'all_client_info.id as clientid',
-                        'tbltown.town as location', 'tblproject.title as project_title', 'all_client_info.targeted_client_id', 'tblproject.pid', 'all_client_info.client_name', 'tblstatus.status as client_project_status', 'tblstatus.id as client_project_status_id')
+                        'tbltown.town as location', 'tblproject.title as project_title', 'c.created_by', 'all_client_info.targeted_client_id', 'tblproject.pid', 'all_client_info.client_name', 'tblstatus.status as client_project_status', 'tblstatus.id as client_project_status_id')
             ->orderBy('tblproject.pid')->where('tblproject.active', '=', 'yes')
             ->where("all_client_info.created_by_tenant_id", Auth::user()->created_by)
             ->where("all_client_info.created_by_tenant_id", "<>", null)

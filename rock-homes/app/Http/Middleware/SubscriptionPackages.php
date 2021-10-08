@@ -15,15 +15,14 @@ class SubscriptionPackages
      */
     public function handle($request, Closure $next, $subscription_type)
     {
+
         
-        if ( ! $request->user()->CustomerSubscriptionPackage($subscription_type) ) {
+        if ( !$request->user()->CustomerSubscriptionPackage($subscription_type)->package_type 
+                    ||  $request->user()->CustomerSubscriptionPackage($subscription_type)->package_type == 'basic' ) {
             # code...
-            return redirect(route('home'));
+           abort(403, "not authorized");
 
-        } elseif( $request->user()->CustomerSubscriptionPackage($subscription_type) === 'basic') {
-            route('home');
-
-        }
+        } 
 
         return $next($request);
     }

@@ -19,9 +19,8 @@ trait SubscriptionTrait
     {
         # code...
         $get_subscription_type  =   \DB::table('pricing_plan')->select("*")
-                    ->wherePackageType($subscription_type)
-                    ->first();
-          
+                    ->wherePackageType($subscription_type)->first();
+                        
         return $get_subscription_type;
         
     }
@@ -30,9 +29,7 @@ trait SubscriptionTrait
     {
         # code...
         \DB::table('users')->whereId(\Auth::user()->id)
-            ->orWhere('pricing_plan_id', '=', null)
-            // ->orWhere('pricing_plan_id', '=', 0)
-            // ->orWhere('pricing_plan_id', '=', '')
+            ->where('pricing_plan_id', '=', null)
             ->update(array_merge(['pricing_plan_id' => 1]));
         
     }

@@ -88,18 +88,16 @@ class User extends Authenticatable implements AuthenticatableContract, CanResetP
     public static function CustomerSubscriptionPackage($package_type)
     {
         
-        $subscription_plan      =   static::getSubscriptionType();
-        $get_client_plan        =   in_array($package_type, $subscription_plan);
-         
-        if ($get_client_plan) {
+        $get_customer_subscription_plan     =   static::getCustomerSubscriptionPlan();
+        abort_if(is_null($get_customer_subscription_plan), 403);
+
+        $package_type   =   static::getCustomerSubscriptionPlan()->package_type;
+
+        if ( property_exists(static::getCustomerSubscriptionPlan(), 'package_type') ) {
             # code...
-            foreach ($subscription_plan as $key => $sub_type) {
-                # code...
-                $package_type   =   $sub_type->package_type;
-                return  $package_type;
-            }
+            return static::getSubscriptionType($package_type);
         }
-       
+        
 
     }
 
