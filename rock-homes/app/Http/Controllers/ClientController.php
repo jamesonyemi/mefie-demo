@@ -287,15 +287,14 @@ class ClientController extends Controller
 
             $userRole          =  [ 'role_id' => $roleId, 'user_id' => $saveClientAsUser, 'created_by' => Auth::user()->id,  ];
             $saveClientAsUser  =  DB::table('tbluser_role')->insertGetId(array_merge_recursive($userRole));
-
-            if(connection_aborted() ) {
-
-                    // if ( $saveClientAsUser ) {
-                    //     # code...
-                    //     static::sendLoginDetailsToClient($request->email, $showPassWord, $client, $full_name);
-                    // }
+            
+                if ( $saveClientAsUser ) {
+                    # code...
+                    static::sendLoginDetailsToClient($request->email, $showPassWord, $client, $full_name);
                 }
+
              }
+             
             return redirect()->route('clients.index')->with('success', 'Client # " '. ''. $createNewClient. $successMessage);
 
     }
