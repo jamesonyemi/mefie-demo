@@ -1,3 +1,6 @@
+@can('project-per-client')
+ {{  view('clients.upgrade_subscription') }}
+@else
 @include('partials.header')
 @include('partials.side_menu')
 
@@ -17,7 +20,6 @@
 
 
         <!-- Start -->
-
         <div class="mt-5 mb-5 card">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h3>Project Details</h3>
@@ -30,7 +32,11 @@
                         <div class="form-group col-md-1"></div>
                         <div class="form-group col-md-4">
                             <label for="client">Client</label>
-                            @include('partials.client_to_auth_user.line_through_dropdown')       
+                            @canany(['isProfessional'])
+                                @include('partials.client_to_auth_user.dropdown')       
+                            @elsecanany(['isBasic', 'isStandard'])
+                                @include('partials.client_to_auth_user.line_through_dropdown')       
+                            @endcanany
                         </div>
                         <div class="form-group col-md-2"> </div>
                         <div class="form-group col-md-4">
@@ -133,7 +139,7 @@
                 </form>
             </div>
         </div>
-
+@endcan
         <!-- End -->
  @include('partials.footer')
  @include('projects.region_town_dropdown')

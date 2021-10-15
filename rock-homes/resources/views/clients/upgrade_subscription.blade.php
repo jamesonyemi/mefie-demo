@@ -41,4 +41,3 @@
 <div class="flex-grow-1"></div>
 <br>
 @include('partials.footer')
-@include('clients.check_email.email_exist')

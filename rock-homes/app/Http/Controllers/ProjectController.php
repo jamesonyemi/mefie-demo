@@ -10,10 +10,15 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\PaymentController;
+use Illuminate\Support\Facades\Gate;
+use App\Traits\ProjectTrait;
 
 
 class ProjectController extends Controller
 {
+    
+    use ProjectTrait;
+    
     /**
      * Display a listing of the resource.
      *
@@ -68,12 +73,18 @@ class ProjectController extends Controller
 
         $titleId            =   DB::table('tbltitle')->get()->pluck('tid', 'salutation');
         $project_status     =   DB::table('tblstatus')->get()->pluck('id', 'status');
-        $project            =   DB::table('tblproject')->pluck("clientid")->toArray();
+        $project            =   static::pluckAllClientIdBelongingToAuthUser();
 
         $projects_created_by_customer       =   static::allProjectList();
 
-        return view('projects.create', compact('genders', 'townId','regions', 'regionId', 
-                    'project_status','titleId', 'project', 'projects_created_by_customer', ));
+        if ( Gate::allows("isProfessional") || Gate::allows("limited-subscription-package" ) ) {
+            # code...
+            return view('projects.create', compact('genders', 'townId','regions', 'regionId', 
+                        'project_status','titleId', 'project', 'projects_created_by_customer', ));
+        } 
+
+        return view('clients.upgrade_subscription');
+
         
     }
 
@@ -105,16 +116,27 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
+
+        $postData          =   ClientController::allExcept();
+        $client_id_array   =   static::pluckAllClientIdBelongingToAuthUser();
+
+         if( in_array($request->clientid, $client_id_array ) && !Gate::allows("isProfessional") ) {
+             
+             return view('clients.upgrade_subscription');
+
+        }
+
+        if ( Gate::allows("isProfessional") || Gate::allows("limited-subscription-package" ) ) {
+
+            $createProject = DB::table('tblproject')->insertGetId(
+                    array_merge( $postData, 
+                             $this->removeHtmlTags("description", $request->description)
+                        ));
+            
+            return redirect()->route('projects.index')->with('success', 'Project #' . "\n" . $createProject . ' Created Sucessfully');
+
+        }
         
-        // $this->validateIncomingDataRequest();
-        $postData       =   ClientController::allExcept();
-        
-        $createProject = DB::table('tblproject')->insertGetId(
-                array_merge( $postData, 
-                         $this->removeHtmlTags("description", $request->description)
-                    ));
-        
-        return redirect()->route('projects.index')->with('success', 'Project #' . "\n" . $createProject . ' Created Sucessfully');
         
     }
 
@@ -215,8 +237,6 @@ class ProjectController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
-        $this->validateIncomingDataRequest();
 
         $id             = PaymentController::decryptedId($id);
         $updateData     = ClientController::allExcept();
