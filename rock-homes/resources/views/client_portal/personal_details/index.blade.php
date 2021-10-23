@@ -26,7 +26,7 @@
                         <div class="form-group col-md-1"> </div>
                         <div class="form-group col-md-4">
                             <label for="email">Email</label>
-                        <input type="email" class="form-control list-group-item text-capitalize" name="email" id="email" value="{!! $individual_clients->email !!}" disabled>  
+                        <input type="email" class="form-control list-group-item" name="email" id="email" value="{!! $individual_clients->email !!}" disabled>  
                         </div>
                         <div class="form-group col-md-1"> </div>
                         <div class="form-group col-md-4" >
