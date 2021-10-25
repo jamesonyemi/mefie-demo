@@ -77,7 +77,7 @@ class ProjectController extends Controller
 
         $projects_created_by_customer       =   static::allProjectList();
 
-        if ( Gate::allows("isProfessional") || Gate::allows("limited-subscription-package" ) ) {
+        if ( Gate::allows("isProfessional") || !Gate::allows("project-per-client" ) ) {
             # code...
             return view('projects.create', compact('genders', 'townId','regions', 'regionId', 
                         'project_status','titleId', 'project', 'projects_created_by_customer', ));
@@ -126,7 +126,7 @@ class ProjectController extends Controller
 
         }
 
-        if ( Gate::allows("isProfessional") || Gate::allows("limited-subscription-package" ) ) {
+        if ( Gate::allows("isProfessional") || !Gate::allows("project-per-client" ) ) {
 
             $createProject = DB::table('tblproject')->insertGetId(
                     array_merge( $postData, 
