@@ -78,12 +78,12 @@ trait CloseGateOnIntruderTrait
     {
         
         # Number of projects alloted to each client of the Authenticated User for a given subscription plan...
-        Gate::define('project-per-client', function($plan) {
+        Gate::define('project-per-client', function($current_subscription_plan) {
 
-            $get_auth_client_projects       =   static::pluckAllClientIdBelongingToAuthUser();
-            $current_subscription_plan      =   static::getCustomerSubscriptionPlan();
+            $auth_client_projects         =   static::pluckAllClientIdBelongingToAuthUser();
+            $current_subscription_plan    =   static::getCustomerSubscriptionPlan();
 
-            return  ( ( (int)count($get_auth_client_projects) ) === ( (int) $current_subscription_plan->quota )  );
+            return  ( ( (int)count($auth_client_projects) ) === ( (int) $current_subscription_plan->quota )  );
 
         });
     }
