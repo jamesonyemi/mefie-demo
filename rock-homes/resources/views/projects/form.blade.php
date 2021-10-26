@@ -91,7 +91,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="row">
-                                        <div class="col-sm-3 col-md-3 col-lg-3" style="margin-right:-1.5rem;">
+                                        <div class="col-sm-2 col-md-2 col-lg-2" style="margin-right:-1.5rem;">
                                                 <img  id="country_flag" class="border-0 form-control form-control-sm ">
                                         </div>
                                         <div class="col-sm-3 col-md-3 col-lg-3" style="margin-right:-1.5rem;">
@@ -147,22 +147,22 @@
  
  
  <script>
-     const url_endpoint =   'https://ipapi.co/' + "/{{ Request()->ip }}/" + 'json';
-        fetch(`${url_endpoint}`)
-           .then( function(response) {
-               if (response.status !== 200) {
-                   console.log('Looks like there was a problem. Status Code: ' +
-                       response.status);
-                   return;
-               }
-               // Examine the text in the response
-               response.json().then(function(data) {
-                   if (document.getElementById("country_flag")) {
-                       document.querySelector("label[for='currency-code']").textContent = data.currency;
-                       document.getElementById("country_flag").src = `https://lipis.github.io/flag-icon-css/flags/4x3/` + (data.country_code).toLowerCase() + ".svg";
-                   }
-                   return;
-               })
-           });  
- </script>
+    const url_endpoint =   'https://ipapi.co/' + "/{{ Request()->ip }}/" + 'json';
+       fetch(`${url_endpoint}`)
+          .then( function(response) {
+              if (response.status !== 200) {
+                  console.log('Looks like there was a problem. Status Code: ' +
+                      response.status);
+                  return;
+              }
+              // Examine the text in the response
+              response.json().then(function(data) {
+                  if (document.getElementById("country_flag")) {
+                      document.querySelector("label[for='currency-code']").textContent = data.currency;
+                      document.getElementById("country_flag").src = `https://ipapi.co/static/images/flags/` + (data.country_code).toLowerCase() + ".png";
+                  }
+                  return;
+              })
+          });  
+</script>
 
