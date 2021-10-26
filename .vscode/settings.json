@@ -2,12 +2,14 @@
   "cSpell.words": [
     "cust",
     "elsecan",
+    "elsecanany",
     "endcan",
     "endcannot",
     "endphp",
     "tblcountry",
     "tblgender",
     "tbltitle",
-    "tbltown"
+    "tbltown",
+    "ucwords"
   ]
 }
