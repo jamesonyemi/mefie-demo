@@ -12,7 +12,7 @@
                       <h2 class="my-5 ml-5">{{ $success }}</h2>
                     </div>
                     <h4>Please we've sent you an email to activate your account on {{ config("app.name")  }}</h4>
-                    <p class="">Kindly note, that the link would expire after 60 minutes</p>
+                    <p class="">The link would expire soon, please activate your account</p>
                 </div>
             </div>
         </div>
