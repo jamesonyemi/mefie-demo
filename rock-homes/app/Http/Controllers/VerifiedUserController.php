@@ -23,12 +23,14 @@ class VerifiedUserController extends Controller
         
         # code ...
         
-        $verifiedUsers          =   DB::table('users')->where('created_by', Auth::user()->tenant_id)->latest('created_at')->paginate();
+        $verifiedUsers          =   DB::table('users')->where('created_by', Auth::user()->tenant_id)
+                                                        ->where( 'id', '<>', Auth::user()->id )
+                                                        ->latest('created_at')->paginate();
         
         $none_verified_users    =   DB::table('users')->where([
                                             'created_by' =>  Auth::user()->tenant_id, 
                                             'verified'   =>   false
-                                        ])->latest('created_at')->paginate();
+                                        ])->where( 'id', '<>', Auth::user()->id )->latest('created_at')->paginate();
 
         return view('users.index', compact('verifiedUsers', 'none_verified_users'));
         
