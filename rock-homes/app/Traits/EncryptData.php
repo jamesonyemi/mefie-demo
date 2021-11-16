@@ -2,6 +2,8 @@
 
 namespace App\Traits;
 
+use Illuminate\Support\Facades\Crypt;
+
 trait EncryptData
 {
     public static function hashData($args): String
