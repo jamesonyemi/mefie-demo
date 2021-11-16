@@ -76,10 +76,8 @@ class ClientOnboarding extends Controller
         }
         else{
             
-            static::copyCustomerDataIntoUserTable(
-                 $first_name, $last_name, $get_updated_info, 
-                    DB::table("customers")->where('tenant_id', $token)->first()->id );
-
+            $get_client_details  =   DB::table("all_client_info")->where('targeted_client_id', $token)->first();
+            static::copyCustomerDataIntoUserTable($first_name, $last_name, $get_updated_info, $get_client_details->id );
             return redirect()->route('successful-onboarding');
 
         }

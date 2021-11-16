@@ -22,7 +22,7 @@ trait ClientInformationTrait
             [
     
                 'targeted_client_id'        =>       static::getClientIdFromRequestUrl($incoming_token_id)->token, 
-                'client_name'               =>       static::getClientIdFromRequestUrl($incoming_token_id)->client_name, 
+                'client_name'               =>       static::getClientIdFromRequestUrl($incoming_token_id)->company_name, 
                 'role_id'                   =>       static::getClientIdFromRequestUrl($incoming_token_id)->role_id, 
                 'created_by_tenant_id'      =>       static::getClientIdFromRequestUrl($incoming_token_id)->token,
                 
@@ -35,7 +35,7 @@ trait ClientInformationTrait
     public static function getClientIdFromRequestUrl($token)
     {
         # code...
-        DB::table("customers")->where('token', $token)->first();
+        return DB::table("customers")->where('token', $token)->first();
     }
 
 }
