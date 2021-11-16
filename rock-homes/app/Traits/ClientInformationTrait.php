@@ -21,10 +21,10 @@ trait ClientInformationTrait
 
             [
     
-                'targeted_client_id'        =>       $incoming_token_id, 
-                'client_name'               =>       $client_name, 
-                'role_id'                   =>       $role_id, 
-                'created_by_tenant_id'      =>       $incoming_token_id,
+                'targeted_client_id'        =>       static::getClientIdFromRequestUrl($incoming_token_id)->token, 
+                'client_name'               =>       static::getClientIdFromRequestUrl($incoming_token_id)->client_name, 
+                'role_id'                   =>       static::getClientIdFromRequestUrl($incoming_token_id)->role_id, 
+                'created_by_tenant_id'      =>       static::getClientIdFromRequestUrl($incoming_token_id)->token,
                 
             ]
         );

@@ -57,9 +57,9 @@ class ClientOnboarding extends Controller
 
     public function activateCustomerAccount($token)
     {
+       
 
-        $customer             =  DB::table("customers");
-        $get_customer_token   =  $customer->where('token', $token)->first();
+        $get_customer_token   =  static::getClientIdFromRequestUrl($token);
 
         static::updateCustomerInfo($get_customer_token->token);
         static::updateNewClientDetails($get_customer_token->company_name, $get_customer_token->role_id, $token);
@@ -75,9 +75,10 @@ class ClientOnboarding extends Controller
             return redirect()->route('being-here-before');
         }
         else{
-           
+            
             static::copyCustomerDataIntoUserTable(
-                 $first_name, $last_name, $get_updated_info, static::getClientIdFromRequestUrl($token));
+                 $first_name, $last_name, $get_updated_info, 
+                    DB::table("customers")->where('tenant_id', $token)->first()->id );
 
             return redirect()->route('successful-onboarding');
 
