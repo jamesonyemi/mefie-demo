@@ -12,7 +12,7 @@ trait ClientInformationTrait
    
     use EncryptData;
 
-    public static function insertNewClient($customer_name, $role_id): void
+    public static function insertNewClient($client_name, $role_id): void
     {
         
         DB::table('all_client_info')->insertGetId(
