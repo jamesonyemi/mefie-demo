@@ -35,7 +35,7 @@ trait ClientInformationTrait
     public static function getClientIdFromRequestUrl($token): void
     {
         # code...
-        DB::table("customers")->where('tenant_id', $token)->first();
+        DB::table("customers")->where('token', $token)->first();
     }
 
 }
