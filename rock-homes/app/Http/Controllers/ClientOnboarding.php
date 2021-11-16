@@ -12,12 +12,14 @@ use App\Traits\GoogleRecpatchaVerification;
 use App\Notifications\CustomerAccountActivation;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Repository\CustomerRepository;
+use App\Traits\ClientInformationTrait;
 
 
 class ClientOnboarding extends Controller
 {
 
     use CustomerAccountVerification;
+    use ClientInformationTrait;
     use GoogleRecpatchaVerification;
 
     public function index()
@@ -42,6 +44,7 @@ class ClientOnboarding extends Controller
         if ( static::recaptchaVerification()->success === true )
         {
             
+            
             $create_customer    =   CustomerRepository::createNewCustomer($request);
             return redirect()->route('customer-onboarding');
             
@@ -58,6 +61,7 @@ class ClientOnboarding extends Controller
         $customer             =  DB::table("customers");
         $get_customer_token   =  $customer->where('token', $token)->first();
         static::updateCustomerInfo($get_customer_token->token);
+        static::insertNewClient($get_customer_token->company_name, $get_customer_token->role_id);
 
         $arrayList        =   explode(' ', $get_customer_token->company_name);
         $first_name       =   array_shift($arrayList);
@@ -70,7 +74,9 @@ class ClientOnboarding extends Controller
             return redirect()->route('being-here-before');
         }
         else{
-            static::copyCustomerDataIntoUserTable($first_name, $last_name, $get_updated_info);
+            
+            $customer_data   =  DB::table("all_client_info")->where('token', $token)->first();
+            static::copyCustomerDataIntoUserTable( $first_name, $last_name, $get_updated_info, $customer_data->id );
             return redirect()->route('successful-onboarding');
 
         }
@@ -90,21 +96,23 @@ class ClientOnboarding extends Controller
 
     }
 
-    protected static function copyCustomerDataIntoUserTable($first_name, $last_name, $customerInfo)
+    protected static function copyCustomerDataIntoUserTable($first_name, $last_name, $customerInfo, $id_from_all_client_info_table)
     {
         # code...
+
         $create_user  =  DB::table("users")->insertGetId([
 
-          "first_name"  => $first_name,
-          "last_name"   => $last_name,
-          "full_name"   => $customerInfo->company_name,
-          "role_id"     => $customerInfo->role_id,
-          "email"       => $customerInfo->email,
-          "password"    => $customerInfo->password,
-          'verified'    => true,
-          'tenant_id'   => $customerInfo->tenant_id,
-          'user_token'  => $customerInfo->token,
-          'pricing_plan_id' => $customerInfo->pricing_plan_id,
+          "first_name"      =>      $first_name,
+          "last_name"       =>      $last_name,
+          "full_name"       =>      $customerInfo->company_name,
+          "role_id"         =>      $customerInfo->role_id,
+          "email"           =>      $customerInfo->email,
+          "password"        =>      $customerInfo->password,
+          'verified'        =>      true,
+          'tenant_id'       =>      $customerInfo->tenant_id,
+          'user_token'      =>      $customerInfo->token,
+          'clientid'        =>      $id_from_all_client_info_table,
+          'pricing_plan_id'         => $customerInfo->pricing_plan_id,
           'account_activation_date' => $customerInfo->date_of_account_activation,
           'account_activation_expiry_date' => $customerInfo->pricing_plan_expiry_date,
 
@@ -176,13 +184,6 @@ class ClientOnboarding extends Controller
         
     }
     
-    // public static function customerEmailExistInUsersTable($incoming_email_id = '')
-    // {
-    //     $data   =   DB::table('users')->select("email")
-    //     ->where("email", $incoming_email_id )->get();
-    //     return response()->json($data, 200);
-        
-    // }
 
     public static function customerNameExist($customer_name = '')
     {

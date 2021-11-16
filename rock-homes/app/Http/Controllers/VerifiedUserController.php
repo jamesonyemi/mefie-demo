@@ -179,7 +179,7 @@ class VerifiedUserController extends Controller
 
     public function import()
     {
-        // dd(User::all());
+        
         $file_name = request()->file("import-users");
         Excel::import(new UsersImport, $file_name);
 

@@ -22,4 +22,10 @@ trait EncryptData
         return empty($customer_token) ? sha1(time()).(Crypt::encrypt(sha1(time().random_int(1111, 9999)))) : $customer_token;
         
     }
+
+    public static function openTokenGenerator(): void
+    {
+        # code...
+        sha1(time()).(Crypt::encrypt(sha1(time().random_int(1111, 9999))));
+    }
 }

@@ -706,10 +706,10 @@ class ClientController extends Controller
                 sha1(time()).(Crypt::encrypt(sha1(time().random_int(1111, 9999)))) : Auth::user()->tenant_id;
 
          DB::table('users')->where('clientid', Auth::user()->clientid)->update(
-             array_merge(['tenant_id' => $customer_token, 'created_by' => $customer_token]));
+                array_merge(['tenant_id' => $customer_token, 'created_by' => $customer_token]));
 
          DB::table('all_client_info')->where('id', Auth::id())->update(
-              array_merge([ 'targeted_client_id'   => $customer_token, 'created_by_tenant_id' => $customer_token ]));
+                array_merge([ 'targeted_client_id'   => $customer_token, 'created_by_tenant_id' => $customer_token ]));
               
 
     }
