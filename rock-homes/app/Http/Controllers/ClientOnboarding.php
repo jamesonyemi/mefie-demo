@@ -60,15 +60,17 @@ class ClientOnboarding extends Controller
 
         $customer             =  DB::table("customers");
         $get_customer_token   =  $customer->where('token', $token)->first();
+
         static::updateCustomerInfo($get_customer_token->token);
-        static::insertNewClient($get_customer_token->company_name, $get_customer_token->role_id);
+        static::updateNewClientDetails($get_customer_token->company_name, $get_customer_token->role_id, $token);
 
-        $arrayList        =   explode(' ', $get_customer_token->company_name);
-        $first_name       =   array_shift($arrayList);
-        $last_name        =   implode(' ',$arrayList);
-        $get_updated_info =  $get_customer_token;
+        $arrayList            =   explode(' ', $get_customer_token->company_name);
+        $first_name           =   array_shift($arrayList);
+        $last_name            =   implode(' ',$arrayList);
+        $get_updated_info     =   $get_customer_token;
 
-        $is_already_a_user  =   DB::table('users')->whereUserToken($token)->first();
+        $is_already_a_user    =   DB::table('users')->whereUserToken($token)->first();
+
         if ( !empty($is_already_a_user->email) )
         {
             return redirect()->route('being-here-before');

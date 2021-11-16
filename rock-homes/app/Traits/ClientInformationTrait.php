@@ -12,18 +12,17 @@ trait ClientInformationTrait
    
     use EncryptData;
 
-    public static function insertNewClient($client_name, $role_id): void
+    public static function updateNewClientDetails($client_name, $role_id, $incoming_token_id): void
     {
         
-        DB::table('all_client_info')->insertGetId(
-                [
-        
-                    'targeted_client_id'        =>       static::openTokenGenerator(), 
-                    'client_name'               =>       $client_name, 
-                    'role_id'                   =>       $role_id, 
-                    'created_by_tenant_id'      =>       static::openTokenGenerator(),
-                    
-                ]
+        DB::table('all_client_info')->where('targeted_client_id', $incoming_token_id)->update([
+            
+                        'targeted_client_id'        =>       static::openTokenGenerator(), 
+                        'client_name'               =>       $client_name, 
+                        'role_id'                   =>       $role_id, 
+                        'created_by_tenant_id'      =>       static::openTokenGenerator(),
+                        
+                    ]
             );
         
     }
