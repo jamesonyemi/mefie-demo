@@ -68,7 +68,6 @@ class ClientOnboarding extends Controller
         $first_name           =   array_shift($arrayList);
         $last_name            =   implode(' ',$arrayList);
         $get_updated_info     =   $get_customer_token;
-
         $is_already_a_user    =   DB::table('users')->whereUserToken($token)->first();
 
         if ( !empty($is_already_a_user->email) )

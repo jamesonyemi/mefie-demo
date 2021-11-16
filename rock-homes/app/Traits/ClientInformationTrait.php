@@ -15,15 +15,19 @@ trait ClientInformationTrait
     public static function updateNewClientDetails($client_name, $role_id, $incoming_token_id): void
     {
         
-        DB::table('all_client_info')->where('targeted_client_id', $incoming_token_id)->update([
-            
-                        'targeted_client_id'        =>       static::openTokenGenerator(), 
-                        'client_name'               =>       $client_name, 
-                        'role_id'                   =>       $role_id, 
-                        'created_by_tenant_id'      =>       static::openTokenGenerator(),
-                        
-                    ]
-            );
+        DB::table('all_client_info')->updateOrInsert(
+                     
+            [   'targeted_client_id' => static::getClientIdFromRequestUrl($incoming_token_id)->token  ],
+
+            [
+    
+                'targeted_client_id'        =>       $incoming_token_id, 
+                'client_name'               =>       $client_name, 
+                'role_id'                   =>       $role_id, 
+                'created_by_tenant_id'      =>       $incoming_token_id,
+                
+            ]
+        );
         
     }
 
@@ -31,7 +35,7 @@ trait ClientInformationTrait
     public static function getClientIdFromRequestUrl($token): void
     {
         # code...
-        DB::table("all_client_info")->where('targeted_client_id', $token)->first()->id;
+        DB::table("customers")->where('tenant_id', $token)->first();
     }
 
 }
