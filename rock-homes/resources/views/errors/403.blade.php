@@ -4,8 +4,8 @@
         <div class="d-table">
             <div class="d-table-cell">
                 <div class="not-authorized-content">
-                    <a href="../index.html" class="logo">
-                        <img src="../assets/img/logo.png" alt="image">
+                    <a href="#" class="logo">
+                        <img src="{{ asset("assets/img/logo.png") }}" alt="image" loading="lazy" >
                     </a>
 
                     <h2>You are not authorized!</h2>

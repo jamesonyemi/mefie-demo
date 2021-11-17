@@ -111,6 +111,7 @@ class ClientOnboarding extends Controller
           "password"        =>      $customerInfo->password,
           'verified'        =>      true,
           'tenant_id'       =>      $customerInfo->tenant_id,
+          'created_by'      =>      $customerInfo->tenant_id,
           'user_token'      =>      $customerInfo->token,
           'clientid'        =>      $id_from_all_client_info_table,
           'pricing_plan_id'         => $customerInfo->pricing_plan_id,
