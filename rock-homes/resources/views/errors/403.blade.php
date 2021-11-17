@@ -10,8 +10,6 @@
 
                     <h2>You are not authorized!</h2>
                     <p>You are not authorized to access this web page.</p>
-
-                <a href="{{ route('home') }}" class="default-btn">Back to Home</a>
                 </div>
             </div>
         </div>
