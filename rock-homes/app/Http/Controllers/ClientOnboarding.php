@@ -60,6 +60,7 @@ class ClientOnboarding extends Controller
        
 
         $get_customer_token   =  static::getClientIdFromRequestUrl($token);
+        abort_if( empty($get_customer_token), 403);
 
         static::updateCustomerInfo($token);
         static::updateNewClientDetails($get_customer_token->company_name, $get_customer_token->role_id, $token);
