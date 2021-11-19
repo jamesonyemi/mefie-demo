@@ -51,6 +51,10 @@
    .text-orange {
         color:#f2682b
    } 
+
+   .mefie-text-secondary {
+    color: #293754 !important;
+}
 .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
     border-color:rgba(181, 196, 224, 0.966);
     background-color:rgba(212, 219, 233, 0.103);
@@ -60,12 +64,16 @@
 	font-size: 1.2rem !important;
 }
 
-.bs-example{
+.bs-example {
     margin: 0px;
 }
 
 .bg-orange-300 {
     background-color: #e97896fa !important;
+}
+
+.mefie-bg-secondary {
+    background-color: #293754 !important;
 }
 
 .btn-light {
