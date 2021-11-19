@@ -33,9 +33,26 @@ $finance_role_id   =   config('app.finance');
         
             <div class="sidemenu-body">
                 <ul class="sidemenu-nav metisMenu h-100 ---raise-button" id="sidemenu-nav" data-simplebar>
-                    <li class="nav-item-title">Pages</li>
-                    
-                    
+                    <li class="nav-item-title">
+                        <div class="row">
+                            <div class="col-12">
+                            <div class="stats-card-box mefie-bg-secondary">
+                                <div class="icon-box bg-secondary">
+                                    <i class='bx bx-credit-card' ></i>
+                                </div>
+                                <div class="mt-2">
+                                    <span class="text-white text-lowercase">Subscription</span> 
+                                    <h3> 
+                                        <p class="text-orange">
+                                            {{ App\Traits\SubscriptionTrait::getCustomerSubscriptionPlan()->package_type }}
+                                        </p>
+                                    </h3>
+                                </div> 
+                                </div>
+                                </div>
+                            </div>
+                    </li>
+                      <li class="nav-item-title">Pages</li>
                     
         @if( Auth::user()->role_id === $admin_role_id )
                    
