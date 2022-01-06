@@ -47,7 +47,7 @@
                         <div class="form-group col-md-4">
                             <label for="validate_othername">Middle Name</label>
                             <input type="text" class="form-control" name="oname" id="oname"
-                                placeholder="" value="{{ $client->oname }}" required>
+                                placeholder="" value="{{ $client->oname }}" >
                             </div>
                                 <div class="form-group col-md-2">
 
