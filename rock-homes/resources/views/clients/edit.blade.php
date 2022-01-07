@@ -12,7 +12,8 @@
 
         <!-- Main Content Layout -->
         <!-- Breadcrumb Area -->
-        @include('partials.breadcrumb')
+
+       {{ Breadcrumbs::render('edit') }}
         <!-- End Breadcrumb Area -->
 
         <!-- Start -->

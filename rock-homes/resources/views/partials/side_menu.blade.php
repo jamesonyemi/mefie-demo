@@ -91,7 +91,7 @@ $finance_role_id   =   config('app.finance');
                             <li class="{{ Request::url() == url('/admin-portal/projects') ? 'nav-item mm-active' : 'nav-item' }}">
                                 <a href="{{ route('projects.index') }}" class="nav-link">
                                     <span class="icon"><i class='bx bx-user' ></i></i></span>
-                                    <span class="menu-title">Indivivual Projects</span>
+                                    <span class="menu-title">Individual Projects</span>
                                 </a>
                             </li>
                             

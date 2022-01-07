@@ -1,4 +1,6 @@
-    @include('partials.breadcrumb')
+    {{-- @include('partials.breadcrumb') --}}
+    
+    {{ Breadcrumbs::render('action board') }}
     
    <div class="mt-5 row">
             <div class="col-lg-4 col-md-6">
