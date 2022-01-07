@@ -12,7 +12,7 @@
 
         <!-- Main Content Layout -->
         <!-- Breadcrumb Area -->
-        @include('partials.breadcrumb')
+        {{ Breadcrumbs::render("view-client-details") }}
         <!-- End Breadcrumb Area -->
 
         <!-- Start -->

@@ -26,8 +26,9 @@ Breadcrumbs::for('edit', function ($trail) {
   $trail->push('edit client details', route('clients.edit', Auth::user()->clientid));
 });
 
-// Home > Blog > [Category]
-// Breadcrumbs::for('category', function (BreadcrumbTrail $trail, $category) {
-//     $trail->parent('blog');
-//     $trail->push($category->title, route('category', $category));
-// });
+// Home > action board > view client details
+Breadcrumbs::for('view-client-details', function ($trail) {
+  $trail->parent('action board');
+  $trail->push('view client details', route('clients.show', Auth::user()->clientid));
+});
+
