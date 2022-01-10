@@ -34,23 +34,24 @@ $finance_role_id   =   config('app.finance');
             <div class="sidemenu-body">
                 <ul class="sidemenu-nav metisMenu h-100 ---raise-button" id="sidemenu-nav" data-simplebar>
                     <li class="nav-item-title">
-                        <div class="row">
-                            <div class="col-12">
-                            <div class="stats-card-box mefie-bg-secondary">
-                                <div class="icon-box bg-secondary">
-                                    <i class='bx bx-credit-card' ></i>
+                        <div class="row justify-content-start">
+                            <div class="d-flex mefie-bg-secondary">
+                                <div class="mr-auto p-2 stat-card-box">
                                 </div>
-                                <div class="mt-2">
-                                    <span class="text-white text-lowercase">Subscription</span> 
-                                    <h3> 
-                                        <p class="text-orange">
-                                            {{ App\Traits\SubscriptionTrait::getCustomerSubscriptionPlan()->package_type }}
-                                        </p>
-                                    </h3>
-                                </div> 
+                                <div class="p-3">
+                                    <span class="text-orange text-uppercase bx-sm font-weight-bold pt-2">
+                                        {{ App\Traits\SubscriptionTrait::getCustomerSubscriptionPlan()->package_type }}
+                                    </span>
+                                    <span class="text-white text-lowercase bx-xs col-12"> 
+                                         subscription
+                                     </span>
                                 </div>
-                                </div>
-                            </div>
+                                <div class="p-2"></div>
+                            <span class=" icon-box text-primary text-uppercase pr-3 justify-content-centre">
+                                <i class='bx bxs-credit-card text-primary bx-md mt-1  ' ></i>
+                                </span> 
+                              </div>
+                        </div>
                     </li>
                       <li class="nav-item-title">Pages</li>
                     
