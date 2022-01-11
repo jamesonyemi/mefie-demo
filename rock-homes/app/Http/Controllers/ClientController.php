@@ -507,7 +507,7 @@ class ClientController extends Controller
         $update_clientInfo    =  DB::table('tblcorporate_client')->where('id', $decryptId)
                                    ->update($isDeleted);
 
-        return redirect('/admin-portal/clients')->with('success', 'Client #' . $decryptId. ' Info Deleted');
+        return redirect()->route("corporate-client-wnp")->with('success', 'Client #' . $decryptId. ' Info Deleted');
     }
 
     public function genderStatus($id)

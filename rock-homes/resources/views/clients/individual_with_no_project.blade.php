@@ -45,7 +45,7 @@
                                     <tbody>
                                         @foreach ($clientWithZeroProject as $item)
                                         <?php $encryptId = Crypt::encrypt($item->clientid) ?>
-                                            @if ( $item->isdeleted == false && $item->active == "yes" )
+                                            @if ( $item->isdeleted == false )
                                                 <tr>
                                                     <td id="client_id"></td>
                                                     <td style='text-align:left'>
