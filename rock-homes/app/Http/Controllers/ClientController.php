@@ -485,7 +485,7 @@ class ClientController extends Controller
         $isDeleted            =  [ "active" => $request->active, "isdeleted" => $request->isdeleted ];
         $update_clientInfo    =  DB::table('tblclients')->where('clientid', $getId)->update($isDeleted);
 
-        return redirect('/admin-portal/clients')->with('success', 'Client ID #' . $getId. ' Info Deleted');
+        return redirect()->route("client-wnp")->with('success', 'Client ID #' . $getId. ' Info Deleted');
     }
 
     public function removeDataModal(Request $request, $id)

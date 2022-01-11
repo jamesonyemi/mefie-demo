@@ -45,30 +45,32 @@
                                     <tbody>
                                         @foreach ($clientWithZeroProject as $item)
                                         <?php $encryptId = Crypt::encrypt($item->clientid) ?>
-                                        <tr>
-                                            <td id="client_id"></td>
-                                            <td style='text-align:left'>
-                                                <a href=" {{ route('clients.show', $encryptId)}}" class="mr-2 nav-link text-capitalize">
-                                                 {{ $item->fname ." ". $item->lname }}
-                                                </a>
-                                             </td>
-                                            <td style='text-align:left'>
-                                                <a href=" {{ route('clients.show', $encryptId)}}" class="mr-2 nav-link">
-                                                {{ $item->email }}
-                                                </a>
-                                            </td>
-                                            <td class="bx-sm">{{ $item->phone1 }}</td>
-                                            <td>
-                                            <a href="{{ route('clients.show', $encryptId)}}" class="mr-2 d-inline-block text-success" ><i class="bx bxs-analyse bx-sm"></i></a>
-                                            <a href="{{ route('clients.edit', $encryptId) }}" class="mr-2 d-inline-block text-success" ><i class="bx bx-edit bx-sm"></i></a>
+                                            @if ( $item->isdeleted == false && $item->active == "yes" )
+                                                <tr>
+                                                    <td id="client_id"></td>
+                                                    <td style='text-align:left'>
+                                                        <a href=" {{ route('clients.show', $encryptId)}}" class="mr-2 nav-link text-capitalize">
+                                                        {{ $item->fname ." ". $item->lname }}
+                                                        </a>
+                                                    </td>
+                                                    <td style='text-align:left'>
+                                                        <a href=" {{ route('clients.show', $encryptId)}}" class="mr-2 nav-link text-orange">
+                                                        {{ $item->email }}
+                                                        </a>
+                                                    </td>
+                                                    <td class="">{{ $item->phone1 }}</td>
+                                                    <td>
+                                                    <a href="{{ route('clients.show', $encryptId)}}" class="mr-2 d-inline-block text-success" ><i class="bx bxs-analyse bx-sm"></i></a>
+                                                    <a href="{{ route('clients.edit', $encryptId) }}" class="mr-2 d-inline-block text-success" ><i class="bx bx-edit bx-sm"></i></a>
 
-                                            <a  href="{{ url('admin-portal/client-wnp/remove-data' ).
-                                            '/'.$encryptId }}" class="d-inline-block text-danger bx-sm" id="del-modal"
-                                            data-toggle="modal" data-target=".bd-example-modal-sm">
-                                            <i class="bx bx-trash text-danger"></i>
-                                            </a>
-                                            </td>
-                                        </tr>
+                                                    <a  href="{{ url('admin-portal/client-wnp/remove-data' ).
+                                                    '/'.$encryptId }}" class="d-inline-block text-danger bx-sm" id="del-modal"
+                                                    data-toggle="modal" data-target=".bd-example-modal-sm">
+                                                    <i class="bx bx-trash text-danger"></i>
+                                                    </a>
+                                                    </td>
+                                                </tr> 
+                                            @endif
                                         @endforeach
                                     </tbody>
                                 </table>
