@@ -372,20 +372,16 @@ class ClientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($request_clientid)
     {
-        # code ...
-        $id           = PaymentController::decryptedId($id);
-        $clients      = DB::table('tblclients')->get();
-        $genders      = DB::table('tblgender')->get();
-        $countries    = DB::table('tblcountry')->get();
-
+        # code ...  
         $genId        = DB::table('tblgender')->get()->pluck('type', 'id');
         $countryId    = DB::table('tblcountry')->get()->pluck('country_name', 'id');
-        $clientId     = DB::table('tblclients')->where('clientid', $id)->get();
+        $clientId     = DB::table('tblclients')->where('clientid', $PaymentController::decryptedId($request_clientid))->get();
         $format_date  = static::textualDate();
 
-        return view('clients.show', compact('clientId', 'clients', 'genders', 'genId', 'countries', 'countryId', 'format_date' ));
+        return view('clients.show', compact('clientId', 'genId', 'countryId', 'format_date' ));
+        
     }
 
     public function viewCorporateClient($id)
