@@ -377,11 +377,11 @@ class ClientController extends Controller
         # code ...  
         $genId        = DB::table('tblgender')->get()->pluck('type', 'id');
         $countryId    = DB::table('tblcountry')->get()->pluck('country_name', 'id');
-        $clientId     = DB::table('tblclients')->where('clientid', $PaymentController::decryptedId($request_clientid))->get();
+        $clientId     = DB::table('tblclients')->where('clientid', PaymentController::decryptedId($request_clientid))->get();
         $format_date  = static::textualDate();
 
         return view('clients.show', compact('clientId', 'genId', 'countryId', 'format_date' ));
-        
+
     }
 
     public function viewCorporateClient($id)
