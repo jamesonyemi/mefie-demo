@@ -19,7 +19,7 @@
         
         <div class="card-body">
         <ul>
-            @foreach ( json_decode($item->img_path) as $path)
+            {{-- @foreach ( json_decode($item->img_path) as $path)
         <li class="single-product">
             <a 
             href="{{ asset(config('app.rock_rel_path').$path ) }}" 
@@ -30,7 +30,7 @@
             <img data-cfsrc="{{ asset(config('app.rock_rel_path').$path ) }} " 
             alt="image" src="{{ asset(config('app.rock_rel_path').$path) }} ">
         </a>
-            @endforeach
+            @endforeach --}}
                   {{ $item->region }}
                   <h4 class="mb-2">
                     <a href="#" class="d-inline-block">{{ $item->title }}

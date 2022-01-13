@@ -18,7 +18,7 @@
      <ul>
             @foreach ($get_client_ongoing_project as  $item)
         <li class="single-product">
-            @foreach ( json_decode($item->img_path) as $path)
+            {{-- @foreach ( json_decode($item->img_path) as $path)
                 <a 
                     href="{{ asset(config('app.rock_rel_path').$path ) }}" 
                     class="image d-inline-block"
@@ -28,7 +28,7 @@
                     <img data-cfsrc="{{ asset(config('app.rock_rel_path').$path ) }} " 
                     alt="image" src="{{ asset(config('app.rock_rel_path').$path) }} ">
                 </a>
-            @endforeach
+            @endforeach --}}
         <h4 class="mb-2">
             <a href="#" class="d-inline-block">{{ $item->title }}
             </a>
