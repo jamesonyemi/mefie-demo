@@ -12,9 +12,8 @@
 
     <!-- Main Content Layout -->
     <!-- Breadcrumb Area -->
-    @include('partials.breadcrumb')
+    {{ Breadcrumbs::render("view-project") }}
     <!-- End Breadcrumb Area -->
-
 
         <!-- Start -->
 
@@ -66,7 +65,7 @@
                         <div class="form-group col-md-4">
                             <label for="validate_country">Town</label>
                         @foreach ($townId as $key => $town)
-                        @if ( in_array($project->rid, [$key]) && $project->active === 'yes'  )
+                        @if ( in_array($project->tid, [$key]) && $project->active === 'yes'  )
                         <div>
                             <div class="form-group list-group-item col-12 bx-sm" >
                                 {{ ucwords($town) }}

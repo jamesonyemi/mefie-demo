@@ -4,16 +4,16 @@
 @include('partials.side_menu')
 <!-- End Sidemenu Area -->
 
-        <!-- Main Content Wrapper -->
-        <div class="main-content d-flex flex-column">
-            <!-- Top Navbar -->
-            <!-- Top Navbar Area -->
-@include('partials.topnav')
-<!-- End Top Navbar Area -->
-
-            <!-- Main Content Layout -->
-                <!-- Breadcrumb Area -->
-    <!--@include('partials.breadcrumb')-->
+<!-- Main Content Wrapper -->
+<div class="main-content d-flex flex-column">
+    <!-- Top Navbar -->
+    <!-- Top Navbar Area -->
+    @include('partials.topnav')
+    <!-- End Top Navbar Area -->
+    
+    <!-- Main Content Layout -->
+    <!-- Breadcrumb Area -->
+    {{ Breadcrumbs::render("projects-in-general") }}
     <!-- End Breadcrumb Area -->
 
    @include('partials.success_alert')
@@ -32,7 +32,7 @@
                     <div class="col-10"></div>
                     <div class="row ml-4">
                         <a href="{!! url()->previous()!!}" class="rounded-pill btn-md waves-effect waves-light ml-2 nav-link" ><i class='bx bx-arrow-back'></i> 
-                        <sapn class="text-sm">Back</sapn></a>
+                        <span class="text-sm">Back</span></a>
                     <div class="row ml-5">
                          <div class="text-uppercase text-center mt-2 font-weight-bold" >Projects Summary</div>
                     </div>        

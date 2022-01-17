@@ -150,10 +150,6 @@ class ProjectController extends Controller
     {
         //code
         $id             =  PaymentController::decryptedId($id);
-        $projects       =  DB::table('tblproject')->get();
-        $genders        =  DB::table('tblgender')->get();
-        $regions        =  DB::table('tblregion')->get();
-        $countries      =  DB::table('tblcountry')->get();
 
         $project_status =  DB::table('tblstatus')->get()->pluck('id', 'status');
         $townId         =  DB::table('tbltown')->get()->pluck('town', 'tid');
@@ -181,8 +177,8 @@ class ProjectController extends Controller
         }
 
 
-        return view('projects.show', compact('projectById', 'projects', 'countries', 'townId',
-                         'regions', 'regionId','countryId', 'project_status', 'r' ));
+        return view('projects.show', compact('projectById', 'townId',
+                         'regionId','countryId', 'project_status', 'r' ));
     }
 
     /**
@@ -194,11 +190,6 @@ class ProjectController extends Controller
     public function edit($projectid)
     {
         $id             =  PaymentController::decryptedId($projectid);
-        $projects       =  DB::table('tblproject')->get();
-        $genders        =  DB::table('tblgender')->get();
-        $regions        =  DB::table('tblregion')->get();
-        $countries      =  DB::table('tblcountry')->get();
-
         $project_status =  DB::table('tblstatus')->get()->pluck('id', 'status');
         $townId         =  DB::table('tbltown')->where('active', 'yes')->get()->pluck('town', 'tid');
         $regionId       =  DB::table('tblregion')->get()->pluck('region', 'rid');
@@ -224,8 +215,7 @@ class ProjectController extends Controller
 
         }
 
-        return view('projects.edit', compact('projectById', 'projects', 'countries', 'townId',
-                      'regions', 'regionId','countryId', 'project_status', 'r'));
+        return view('projects.edit', compact('projectById', 'townId', 'regionId','countryId', 'project_status', 'r'));
     }
 
     /**
@@ -326,6 +316,7 @@ class ProjectController extends Controller
             ->get()->toArray();
 
             return $getAllProjects;
+
     }
     
      public function validateIncomingDataRequest()

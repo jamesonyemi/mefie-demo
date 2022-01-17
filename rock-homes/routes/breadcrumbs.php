@@ -20,6 +20,28 @@ Breadcrumbs::for('action board', function (BreadcrumbTrail $trail) {
     $trail->push('action board', route('clients.index'));
 });
 
+// Home > Clients
+Breadcrumbs::for('projects-in-general', function (BreadcrumbTrail $trail) {
+  $trail->parent('home');
+  $trail->push('projects in general', route('project-list'));
+});
+// Home > projects
+Breadcrumbs::for('individual-client-project', function (BreadcrumbTrail $trail) {
+  $trail->parent('home');
+  $trail->push('individual clients', route('projects.index'));
+});
+
+// Home > projects > view project
+Breadcrumbs::for('view-project', function (BreadcrumbTrail $trail) {
+  $trail->parent('individual-client-project');
+  $trail->push('view project', route('projects.show', Auth::user()->clientid));
+});
+
+Breadcrumbs::for('edit-project', function (BreadcrumbTrail $trail) {
+  $trail->parent('individual-client-project');
+  $trail->push('edit project', route('projects.edit', Auth::user()->clientid));
+});
+
 // Home > action board > edit client details
 Breadcrumbs::for('edit', function ($trail) {
   $trail->parent('action board');

@@ -12,9 +12,8 @@
 
     <!-- Main Content Layout -->
     <!-- Breadcrumb Area -->
-    @include('partials.breadcrumb')
+    {{ Breadcrumbs::render("edit-project") }}
     <!-- End Breadcrumb Area -->
-
 
         <!-- Start -->
         <div class="row">
@@ -54,11 +53,14 @@
                     <div class="form-group col-md-4">
                         <label for="validate_country">Region</label>
                         <select id="rid" name="rid" class="form-control custom-select" required>
-                            @foreach ($regionId as $key => $value)
-                        <option value="{{ $key }}" {{ old('rid', in_array($value,[$value]) ? $project->rid : 'null') === $key ? 'selected' : '' }}>
-                            {{ ucwords($value) }}</option>
-                        @endforeach
+                        @foreach ($regionId as $key => $status)
+                                @if ( $project->active === 'yes'  )
+                                    <option value="{{ $key }}" {{ old('trid', in_array($status,[$status]) ? $project->rid : 'null') == $key ? 'selected' : '' }}>
+                                    {{ ucwords($status) }}</option>
+                                @endif
+                             @endforeach
                         </select>
+
 
                     </div>
                     </div>
@@ -74,6 +76,7 @@
                                 {{ ucwords($town) }}</option>
                                 @endif
                         @endforeach
+
                         </select>
 
                         </div>
@@ -106,9 +109,8 @@
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-1"></div>
-                        <div class="form-group col-md-6"></div>
-                        <div class="form-group col-md-4">
+                       <div class="form-group col-1"></div>
+                        <div class="form-group col-10">
                             <label for="validate_othername">Project Description</label>
                         <textarea name="description" id="description" cols="38" rows="5" required value="{{ old('description', $project->description) }}" class="form-control">
                             {{$project->description}}</textarea>
@@ -124,6 +126,7 @@
                             </div>
                             @error('description') <span class="ml-2 row" id="error-notify" >{{$message}}</span>  @enderror
                         </div>
+                       <div class="form-group col-1"></div>
                     </div>
                      <hr style="background-color:fuchsia; opacity:0.1">
                       <div class="container">

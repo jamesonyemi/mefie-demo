@@ -13,7 +13,7 @@
 
             <!-- Main Content Layout -->
                 <!-- Breadcrumb Area -->
-    <!--@include('partials.breadcrumb')-->
+    {{ Breadcrumbs::render("individual-client-project") }}
     <!-- End Breadcrumb Area -->
 @if( empty($all_projects)  )
     <h1>No Project Yet</h1>
