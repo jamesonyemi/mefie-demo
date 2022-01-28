@@ -54,8 +54,8 @@ class ProjectController extends Controller
     public function projectListing()
     {
         # code...
-        $all_projects  =  static::allProjectList();
-        return view('projects.project_in_general', compact('all_projects'));
+        $active_projects  =  static::allProjectList();
+        return view('projects.project_in_general', compact('active_projects'));
     }
 
     /**
@@ -292,7 +292,9 @@ class ProjectController extends Controller
                     'tblstatus.status as client_project_status', 'tblstatus.id as client_project_status_id')
         ->orderBy('tblproject.pid')
         ->where("all_client_info.created_by_tenant_id", Auth::user()->created_by)
-            ->where("all_client_info.created_by_tenant_id", "<>", null)
+        ->where("all_client_info.created_by_tenant_id", "<>", null)
+        ->where("tblclients.isdeleted", "=", false)
+        ->orWhere("tblcorporate_client.isdeleted", "=", 'no')
         ->get()->toArray();
 
             return $projects;
@@ -302,7 +304,9 @@ class ProjectController extends Controller
     {
         # code...
         $getAllProjects  = DB::table('all_client_info')
-            ->join('tblproject', 'tblproject.clientid', '=', 'all_client_info.id')
+            ->leftJoin( 'tblclients','tblclients.client_uuid',  '=', 'all_client_info.targeted_client_id')
+            ->leftJoin('tblcorporate_client', 'tblcorporate_client.client_uuid', '=', 'all_client_info.targeted_client_id')
+            ->leftJoin('tblproject', 'tblproject.clientid', '=', 'all_client_info.id')
             ->join("users as c", "c.clientid", "=", "all_client_info.id" )
             ->join('tbltown', 'tbltown.tid', '=', 'tblproject.tid')
             ->join('tblstatus', 'tblstatus.id','=', 'tblproject.statusid')
@@ -312,6 +316,8 @@ class ProjectController extends Controller
             ->orderBy('tblproject.pid')->where('tblproject.active', '=', 'yes')
             ->where("all_client_info.created_by_tenant_id", Auth::user()->created_by)
             ->where("all_client_info.created_by_tenant_id", "<>", null)
+            ->where("tblclients.isdeleted", "=", false)
+            ->orWhere("tblcorporate_client.isdeleted", "=", 'no')
             ->groupBy('tblproject.clientid')
             ->get()->toArray();
 

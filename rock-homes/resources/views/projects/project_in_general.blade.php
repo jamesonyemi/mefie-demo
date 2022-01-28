@@ -88,7 +88,7 @@
 
                                         <tbody>
 
-                                            @foreach ($all_projects as $project)
+                                            @foreach ($active_projects as $project)
                                             <tr>
                                                 <td id="project_id"></td>
                                                 <td> {{ ucfirst($project->project_title) }} </td>
