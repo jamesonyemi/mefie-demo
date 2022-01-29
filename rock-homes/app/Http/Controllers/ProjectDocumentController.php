@@ -26,7 +26,7 @@ class ProjectDocumentController extends Controller
     public function index()
     {
 
-        $projectDocByClientId  =  DB::table('vw_count_group_project_belonging_to_client')
+        $projectDocByClientId  =  DB::table('vw_group_count_active_client_projects')
                                         ->where('created_by_tenant_id', Auth::user()->tenant_id)->get();
         
         return view('project_documents.index', compact('projectDocByClientId') );
