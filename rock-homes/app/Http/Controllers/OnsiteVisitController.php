@@ -32,7 +32,7 @@ class OnsiteVisitController extends Controller
     public function index()
     {
         
-        $count_projects  =  DB::table('vw_count_group_project_belonging_to_client')
+        $count_projects  =  DB::table('vw_group_count_active_client_projects')
                                     ->where('created_by_tenant_id', Auth::user()->tenant_id)->get();
                                     
         $get_projects       =  DB::table("tblproject as a")
@@ -50,7 +50,7 @@ class OnsiteVisitController extends Controller
         
         $decrypt_cid                        =   PaymentController::decryptedId($cid);
         $filter_count_on_project_visited    =   static::filterQueryCountOnVisit($decrypt_cid);
-        $get_client_name                    =   DB::table('vw_count_group_project_belonging_to_client')->select("client_name")
+        $get_client_name                    =   DB::table('vw_group_count_active_client_projects')->select("client_name")
                                                     ->where('clientid', $decrypt_cid)
                                                     ->where('created_by_tenant_id', Auth::user()->tenant_id)->first();
 
