@@ -1,4 +1,21 @@
 @include('partials.header')
+
+@php
+    // Retrieve the request's body and parse it as JSON
+
+    $input = @file_get_contents("php://input");
+
+    $event = json_decode($input);
+
+    // Do something with $event
+
+    $response_20x_status    =   http_response_code(200); // PHP 5.4 or greater
+     if ($response_20x_status) {
+         # code...
+         ddd($event);
+     }
+
+@endphp
         <!-- Main Content Layout -->
             <!-- Start Maintenance Area -->
     <div class="maintenance-area bg-image">
