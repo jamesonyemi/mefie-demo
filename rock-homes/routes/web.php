@@ -25,7 +25,7 @@ Route::get('/Ipay/callback', 'PaymentController@handleGatewayCallback');
 
 Route::group(['prefix' => 'onboarding'], function () {
     
-    Route::any('receive', 'ReceiveWebHookEventController@receiveWebHookEvent')->name('receive-hook');
+    Route::any('/receive-hook', 'ReceiveWebHookEventController@receiveWebHookEvent')->name('receive-hook');
 
     Route::get('/sign-up/customers/check-email/{incoming_email_id?}', 'ClientOnboarding@customerEmailExist')->name("check-cust-email-exist");
     Route::get('/sign-up/customers/check-company-name/{customer_name?}', 'ClientOnboarding@customerNameExist')->name("check-cust-name-exist");
