@@ -17,9 +17,16 @@ use App\Http\Middleware\AdminAuthenticated;
 */
     
     Route::get('/', 'ClientOnboarding@index');
+    
+    // Laravel 5.1.17 and above
+Route::post('/make-payment', 'PaymentController@redirectToGateway')->name('make-payment');
+Route::get('/Ipay/callback', 'PaymentController@handleGatewayCallback');
+
 
 Route::group(['prefix' => 'onboarding'], function () {
     
+    Route::any('receive', 'ReceiveWebHookEventController@receiveWebHookEvent')->name('receive-hook');
+
     Route::get('/sign-up/customers/check-email/{incoming_email_id?}', 'ClientOnboarding@customerEmailExist')->name("check-cust-email-exist");
     Route::get('/sign-up/customers/check-company-name/{customer_name?}', 'ClientOnboarding@customerNameExist')->name("check-cust-name-exist");
     
@@ -124,7 +131,7 @@ Route::group(['prefix' => 'onboarding'], function () {
                     Route::resource('gender', 'GenderController');
                 });
                 
-                Route::any('/my-project-stats/{status?}', 'UtilityController@showProjectByStatus')->name('get-my-project-status');
+                // Route::any('/my-project-stats/{status?}', 'UtilityController@showProjectByStatus')->name('get-my-project-status');
                 
         });
         
