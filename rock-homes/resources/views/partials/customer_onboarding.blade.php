@@ -17,6 +17,7 @@
                         The activation link will expire 
                         {{ now()->addMonths(1)->toDateString() }}
                     </p>
+                    {{ ddd($event) }}
                 </div>
             </div>
         </div>
