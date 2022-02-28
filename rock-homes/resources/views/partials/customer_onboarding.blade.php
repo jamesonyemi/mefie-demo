@@ -9,9 +9,9 @@
 
     // Do something with $event
 
-    $response_20_status    =   http_response_code(200); // PHP 5.4 or greater
+    $res    =   http_response_code(200); // PHP 5.4 or greater
+    ddd($res);
     return $event;
-    exit;
 @endphp
         <!-- Main Content Layout -->
             <!-- Start Maintenance Area -->
