@@ -4,34 +4,34 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Traits\ReceiveWebHookEventTrait;
+use App\Traits\VerifyPayStackPaymentTrait as VerifyTransaction;
 
 class ReceiveWebHookEventController extends Controller
 {
     //
     use ReceiveWebHookEventTrait;
+    use VerifyTransaction;
 
-    public static function receiveWebHookEvent()
+
+    public static function receiveWebHookEvent($ref)
     {
         # code...
-       
-        // Retrieve the request's body and parse it as JSON
-        $input = @file_get_contents("php://input");
         
-        $event = json_decode($input);
+        $response = static::verify($ref);
         
-        // Do something with $event
+        // Do something with $response
 
-        if($event->event == "subscription.create") {
+        if($response->data->status == "success") {
             \DB::table('paystack_cust')->insertGetId([
-                'plan_code'     =>  $event->data->customer->plan_code,
-                'cust_email'    =>  $event->data->customer->plan_code,
-                'cust_code'     =>  $event->data->plan->plan_code,
+                'plan_code'     =>  $response->data->plan_object->plan_code,
+                'cust_email'    =>  $response->data->customer->email,
+                'cust_code'     =>  $response->data->customer->customer_code,
             ]);
         } else {
             abort(302);
         }
         
         http_response_code(200); // PHP 5.4 or greater
-        
+
     }
 }
