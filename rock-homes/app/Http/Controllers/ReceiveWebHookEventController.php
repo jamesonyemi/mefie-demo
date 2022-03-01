@@ -10,18 +10,19 @@ class ReceiveWebHookEventController extends Controller
     //
     use ReceiveWebHookEventTrait;
 
-    public static function receiveWebHookEvent(Request $request)
+    public static function receiveWebHookEvent()
     {
         # code...
-
-        ddd($request->ref);
+       
          // Retrieve the request's body and parse it as JSON
          $input = @file_get_contents("php://input");
         
          $event = json_decode($input);
          
          // Do something with $event
-         return $event;
+         
+         return redirect()->route('customer-onboarding', compact("event"));
+
          http_response_code(200); // PHP 5.4 or greater
 
 
