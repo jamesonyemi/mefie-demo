@@ -13,7 +13,20 @@ class ReceiveWebHookEventController extends Controller
     public static function receiveWebHookEvent(Request $request)
     {
         # code...
-        ddd($request->input('data.customer.email'));
-        return static::receive();
+
+        ddd($request->ref);
+         // Retrieve the request's body and parse it as JSON
+         $input = @file_get_contents("php://input");
+        
+         $event = json_decode($input);
+         
+         // Do something with $event
+         return $event;
+         http_response_code(200); // PHP 5.4 or greater
+
+
+
+        // ddd($request->input('data.customer.email'));
+        // return static::receive();
     }
 }
