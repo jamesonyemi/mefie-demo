@@ -13,7 +13,7 @@ class ReceiveWebHookEventController extends Controller
     public static function receiveWebHookEvent(Request $request)
     {
         # code...
-        ddd($request);
+        ddd($request->input('data.customer.email'));
         return static::receive();
     }
 }
