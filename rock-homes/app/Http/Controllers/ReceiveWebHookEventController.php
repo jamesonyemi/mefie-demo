@@ -13,11 +13,11 @@ class ReceiveWebHookEventController extends Controller
     use VerifyTransaction;
 
 
-    public static function receiveWebHookEvent($ref)
+    public static function receiveWebHookEvent(Request $reference_code)
     {
         # code...
         
-        $response = static::verify($ref);
+        $response = static::verify($reference_code->input("reference"));
         
         // Do something with $response
 
