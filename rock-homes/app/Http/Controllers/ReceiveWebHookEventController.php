@@ -14,20 +14,24 @@ class ReceiveWebHookEventController extends Controller
     {
         # code...
        
-         // Retrieve the request's body and parse it as JSON
-         $input = @file_get_contents("php://input");
+        // Retrieve the request's body and parse it as JSON
+        $input = @file_get_contents("php://input");
         
-         $event = json_decode($input);
-         
-         // Do something with $event
-         
-         return redirect()->route('customer-onboarding', compact("event"));
+        $event = json_decode($input);
+        
+        // Do something with $event
 
-         http_response_code(200); // PHP 5.4 or greater
-
-
-
-        // ddd($request->input('data.customer.email'));
-        // return static::receive();
+        if($event->event == "subscription.create") {
+            \DB::table('paystack_cust')->insertGetId([
+                'plan_code'     =>  $event->data->customer->plan_code,
+                'cust_email'    =>  $event->data->customer->plan_code,
+                'cust_code'     =>  $event->data->plan->plan_code,
+            ]);
+        } else {
+            abort(302);
+        }
+        
+        http_response_code(200); // PHP 5.4 or greater
+        
     }
 }
