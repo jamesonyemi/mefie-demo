@@ -15,7 +15,7 @@ class VerifyPayStackPaymentTransactionController extends Controller
     use VerifyTransaction;
 
 
-    public static function __invoke(Request $reference_code)
+    public function __invoke(Request $reference_code)
     {
         # code...
         
