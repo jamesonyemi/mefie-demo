@@ -77,6 +77,30 @@ return [
     'g_recaptcha_v2_site_key' => env('G_RECAPTCHA_V2_SITEKEY', '6LeJgEUaAAAAAOFR80oFKoX44nNKwlff9lwzwCeS'),
     'g_recaptcha_v2_secret'   => env('G_RECAPTCHA_V2_SECRET', '6LeJgEUaAAAAACi40qjRkFZH3z5kNYwdJvampBCn'),
 
+    /**
+     * Public Key From Paystack Dashboard
+     *
+     */
+    'publicKey' => env('PAYSTACK_PUBLIC_KEY', 'pk_test_533be615e5d56345c27566509442bf7d5bf5edbf'),
+
+    /**
+     * Secret Key From Paystack Dashboard
+     *
+     */
+    'secretKey' => env('PAYSTACK_SECRET_KEY', 'sk_test_eca51ee241c31576bea756cd6c777a52a112b9d1'),
+
+    /**
+     * Paystack Payment URL
+     *
+     */
+    'paymentUrl' => env('PAYSTACK_PAYMENT_URL', 'https://api.paystack.co'),
+
+    /**
+     * Optional email address of the merchant
+     *
+     */
+    'merchantEmail' => env('MERCHANT_EMAIL'),
+
 
 
 
@@ -257,7 +281,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Waavi\Sanitizer\Laravel\SanitizerServiceProvider::class,
-        
+        Unicodeveloper\Paystack\PaystackServiceProvider::class,
        
 
 
@@ -325,7 +349,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'Sanitizer' => Waavi\Sanitizer\Laravel\Facade::class,
-        
+        'Paystack' => Unicodeveloper\Paystack\Facades\Paystack::class,
     ],
 
 ];
