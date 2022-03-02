@@ -5,17 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Traits\ReceiveWebHookEventTrait;
-use App\Traits\VerifyPayStackPaymentTrait as VerifyTransaction;
+use App\Traits\VerifyPayStackPaymentTrait as VerifyPaystackTransaction;
 
 class VerifyPayStackPaymentTransactionController extends Controller
 {
     //
 
     use ReceiveWebHookEventTrait;
-    use VerifyTransaction;
+    use VerifyPaystackTransaction;
 
 
-    public function __invoke(Request $reference_code)
+    public static function verifyTransaction(Request $reference_code)
     {
         # code...
         
