@@ -102,7 +102,7 @@
    }
     ( () => {
         
-        ['change'].forEach( event => {
+        ['keydown','keyup', 'change'].forEach( event => {
             document.getElementById('email').addEventListener(event, renderUsers, false);
         });
         
