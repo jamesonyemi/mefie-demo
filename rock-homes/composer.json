@@ -17,6 +17,7 @@
         "maatwebsite/excel": "^3.1",
         "phpoffice/phpspreadsheet": "^1.10",
         "symfony/mailer": "^5.4",
+        "unicodeveloper/laravel-paystack": "^1.0",
         "waavi/sanitizer": "^1.0"
     },
     "require-dev": {

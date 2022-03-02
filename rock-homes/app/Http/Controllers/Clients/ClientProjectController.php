@@ -19,7 +19,7 @@ class ClientProjectController extends Controller
     public function index()
     {
         
-        $projects              =   DB::table('vw_my_projects')->where('user_id', Auth::id() )->select('*');
+        $projects              =   DB::table('vw_my_projects')->where('user_id', Auth::user()->id )->select('*');
         $retriveProjects       =   $projects->get();
         $getProjectByUserId    =   $projects->first();
         
