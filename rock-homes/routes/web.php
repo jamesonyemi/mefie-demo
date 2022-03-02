@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\CheckUserRole;
 use App\Http\Middleware\AdminAuthenticated;
+use App\Http\Controllers\VerifyPayStackPaymentTransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,7 @@ Route::get('/Ipay/callback', 'PaymentController@handleGatewayCallback');
 Route::group(['prefix' => 'onboarding'], function () {
     
     Route::any('/receive-hook/{ref?}', 'ReceiveWebHookEventController@receiveWebHookEvent')->name('receive-hook');
+    Route::any('/verify-paystack-transaction', VerifyPayStackPaymentTransactionController::class)->name('verify-pst');
 
     Route::get('/sign-up/customers/check-email/{incoming_email_id?}', 'ClientOnboarding@customerEmailExist')->name("check-cust-email-exist");
     Route::get('/sign-up/customers/check-company-name/{customer_name?}', 'ClientOnboarding@customerNameExist')->name("check-cust-name-exist");

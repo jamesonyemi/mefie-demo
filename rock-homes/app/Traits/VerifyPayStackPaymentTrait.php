@@ -37,7 +37,7 @@ trait VerifyPayStackPaymentTrait
 
             CURLOPT_HTTPHEADER => array(
                 
-            "Authorization: "."Bearer" ." " .config('paystack.secretKey'),
+            "Authorization: Bearer ".config('paystack.secretKey')." ",
             "Cache-Control: no-cache",
 
             ),
