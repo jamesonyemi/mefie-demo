@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Traits\ReceiveWebHookEventTrait;
 use App\Traits\VerifyPayStackPaymentTrait as VerifyTransaction;
+use App\Http\Controllers\VerifyPayStackPaymentTransactionController as verifyPay;
 
 class ReceiveWebHookEventController extends Controller
 {
@@ -17,22 +18,6 @@ class ReceiveWebHookEventController extends Controller
     public static function receiveWebHookEvent(Request $reference_code)
     {
         # code...
-        
-        $response = static::verify($reference_code->input("reference"));
-        
-        // Do something with $response
-
-        if($response->data->status == "success") {
-            DB::table('paystack_cust')->insertGetId([
-                'plan_code'     =>  $response->data->plan_object->plan_code,
-                'cust_email'    =>  $response->data->customer->email,
-                'cust_code'     =>  $response->data->customer->customer_code,
-            ]);
-        } else {
-            abort(302);
-        }
-        
-        http_response_code(200);
-
+        return verifyPay::verifyTransaction($reference_code->input("reference"));
     }
 }
