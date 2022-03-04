@@ -18,6 +18,8 @@ class ReceiveWebHookEventController extends Controller
     public static function receiveWebHookEvent(Request $reference_code)
     {
         # code...
-        return verifyPay::verifyTransaction($reference_code->input("reference"));
+        verifyPay::verifyTransaction($reference_code->input("reference"));
+        return redirect()->route('customer-onboarding');
     }
+    
 }

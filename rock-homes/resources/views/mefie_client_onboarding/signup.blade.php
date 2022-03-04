@@ -92,9 +92,33 @@
 
                                                         </div>
                                                     </div><!--end col-->
-
                                                     <div class="col-md-12">
-                                                        <div class="form-group">
+                                                        <div class="form-group position-relative">
+                                                            <label>Invoice Limit <span class="text-danger">*</span></label>
+                                                            <i 
+                                                                class="fea icon-sm icons text-danger" 
+                                                                data-feather="help-circle"
+                                                                data-toggle="tooltip"
+                                                                data-placement="top" 
+                                                                title="how many times a customer can be charged on this plan. For example, if you set invoice limit 5, that means that;
+                                                                on a monthly plan, the customer will be charged every month, for 5 months"
+                                                                ></i>
+                                                            <input 
+                                                                type="number"
+                                                                id="invoice_limit"
+                                                                name="invoice_limit"
+                                                                max=12
+                                                                min=1
+                                                                class="pl-5 form-control" 
+                                                                placeholder="number of times to charge customer" 
+                                                                required
+                                                             >
+                                                        </div>
+                                                    </div><!--end col-->
+                                                    <div class="ml-3 mt-4 g-recaptcha" data-sitekey="{{ config('app.g_recaptcha_v2_site_key') }}">
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group mt-5">
                                                             <div class="custom-control custom-checkbox">
                                                                 <input type="checkbox" class="custom-control-input"
                                                                 id="customCheck1" name="tc" required  >
@@ -102,7 +126,6 @@
                                                             </div>
                                                         </div>
                                                     </div><!--end col-->
-                                                    <div class="ml-3 g-recaptcha" data-sitekey="{{ config('app.g_recaptcha_v2_site_key') }}"></div>
                                         <button type="submit" id="btn-save" class="mt-5 btn btn-primary btn-lg btn-block" disabled>Register</button>
                                                 </div><!--end row-->
                                             </form>

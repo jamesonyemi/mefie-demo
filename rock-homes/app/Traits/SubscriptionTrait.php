@@ -25,6 +25,13 @@ trait SubscriptionTrait
         
     }
 
+    public static function getPricingData($pricing_plan_id)
+    {
+        # code...
+         return \DB::table('pricing_plan')->select("*")->wherePricingId($pricing_plan_id)->first();
+        
+    }
+
     public static function setSubscriptionPackageToBasicIfEmpty():void
     {
         # code...

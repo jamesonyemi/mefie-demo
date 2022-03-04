@@ -72,6 +72,10 @@
     background-color: #e97896fa !important;
 }
 
+.bg-orange {
+    background-color:  hsl(28, 88%, 56%)
+}
+
 .mefie-bg-secondary {
     background-color: #293754 !important;
 }

@@ -25,23 +25,25 @@ class CustomerRepository
 {
     use NotIncludedInRequest, EncryptData;
     # code...
-    public static function createNewCustomer($param)
+    public static function createNewCustomer($param, $ref_code)
     {
         # code...
         $create_new_customer = DB::table('customers')->insertGetId(array_merge(
            static::excludeFromRequest("_token", "_method", "tc"),
             [
 
-                'company_name'  =>  $param->company_name,
-                'phone_number'  =>  $param->phone_number,
-                'email'         =>  $param->email,
-                'password'      =>  static::hashData($param->password),
-                'role_id'       =>  static::assignAdminRole(),
-                'token'         =>  sha1(time()),
-                'cust_ip'       =>  Request()->ip(),
-                'tenant_id'     =>  sha1(time()).(Crypt::encrypt(sha1(time().random_int(1111, 9999)))),
-                'tc'            =>  true,  //terms and conditions
-                'pricing_plan_id'  =>  Crypt::decrypt($param->pricing_plan_id),
+                'company_name'      =>   $param->company_name,
+                'phone_number'      =>   $param->phone_number,
+                'email'             =>   $param->email,
+                'password'          =>   static::hashData($param->password),
+                'role_id'           =>   static::assignAdminRole(),
+                'token'             =>   sha1(time()),
+                'cust_ip'           =>   Request()->ip(),
+                'tenant_id'         =>   sha1(time()).(Crypt::encrypt(sha1(time().random_int(1111, 9999)))),
+                'tc'                =>   true,  //terms and conditions
+                'pricing_plan_id'   =>   Crypt::decrypt($param->pricing_plan_id),
+                'reference_code'    =>   $ref_code,
+                'invoice_limit'     =>   $param->invoice_limit,
 
             ]
         ));

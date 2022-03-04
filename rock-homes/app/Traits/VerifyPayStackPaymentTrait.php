@@ -21,7 +21,7 @@ trait VerifyPayStackPaymentTrait
         $curl = curl_init();
         curl_setopt_array($curl, array(
 
-            CURLOPT_URL => "https://api.paystack.co/transaction/verify/${reference_code}",
+            CURLOPT_URL => config('app.paymentUrl')."/transaction/verify/".$reference_code,
 
             CURLOPT_RETURNTRANSFER => true,
 
@@ -37,7 +37,7 @@ trait VerifyPayStackPaymentTrait
 
             CURLOPT_HTTPHEADER => array(
                 
-            "Authorization: Bearer ".config('paystack.secretKey')." ",
+            "Authorization: Bearer ".config('app.secretKey')."",
             "Cache-Control: no-cache",
 
             ),

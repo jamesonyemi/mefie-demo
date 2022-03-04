@@ -4,15 +4,19 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Traits\SubscriptionTrait;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Crypt;
+use App\Traits\ClientInformationTrait;
+use App\Traits\VerifyPayStackPaymentTrait;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Traits\CustomerAccountVerification;
 use App\Traits\GoogleRecpatchaVerification;
 use App\Notifications\CustomerAccountActivation;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\ReceiveWebHookEventController;
 use App\Http\Controllers\Repository\CustomerRepository;
-use App\Traits\ClientInformationTrait;
+use App\Http\Controllers\PaymentGate\PayStackPaymentSubscriptionProcess;
 
 
 class ClientOnboarding extends Controller
@@ -20,6 +24,8 @@ class ClientOnboarding extends Controller
 
     use CustomerAccountVerification;
     use ClientInformationTrait;
+    use SubscriptionTrait;
+    use VerifyPayStackPaymentTrait;
     use GoogleRecpatchaVerification;
 
     public function index()
@@ -40,20 +46,28 @@ class ClientOnboarding extends Controller
 
     public static function storeCustomerInfo(StoreCustomerRequest $request)
     {
+        
         # code...
-        if ( static::recaptchaVerification()->success === true )
-        {
-            
-            
-            $create_customer    =   CustomerRepository::createNewCustomer($request);
-            return redirect()->route('customer-onboarding');
-            
-        }
-        
-        return redirect()->back();
-        
+        $c      =   (static::getPricingData(Crypt::decrypt($request->pricing_plan_id))->cost);
+        $t      =   (static::getPricingData(Crypt::decrypt($request->pricing_plan_id))->package_type);
+        $cp     =   PayStackPaymentSubscriptionProcess::createPlan($t, $c, Request()->invoice_limit);
+        $sc     =   PayStackPaymentSubscriptionProcess::createSubscription($cp->data->amount, $cp->data->plan_code);
+
+       
+        if ( !empty($cp) && !empty($sc) ) {
+
+                CustomerRepository::createNewCustomer($request, $sc->data->reference );
+                $pay    =   PayStackPaymentSubscriptionProcess::redirectToPayStackCheckOutPage($sc->data->authorization_url);
+                return $pay;
+                
+            }
+            else {
+                abort(302, "authorized process");
+            }
+
 
     }
+
 
     public function activateCustomerAccount($token)
     {
@@ -108,6 +122,7 @@ class ClientOnboarding extends Controller
           "last_name"       =>      $last_name,
           "full_name"       =>      $customerInfo->company_name,
           "role_id"         =>      $customerInfo->role_id,
+          "ref_code"        =>      $customerInfo->reference_code,
           "email"           =>      $customerInfo->email,
           "password"        =>      $customerInfo->password,
           'verified'        =>      true,

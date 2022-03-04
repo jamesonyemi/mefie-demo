@@ -9,15 +9,14 @@
                         <img src="{{ asset('assets/img/logo.png') }}" alt="app logo">
                     </a>
                     <div class="row">
-                      <h2 class="my-5 ml-5">{{ $success }}</h2>
+                      <h2 class="my-2 ml-5">{{ $success }}</h2>
                     </div>
-                    <h4>Please we've sent you an email to activate your account on {{ config("app.name")  }}</h4>
-                    <p class="badge-danger rounded rounded-pill text-white">
+                    <h4 class="mb-4">Please we've sent you an email to activate your account on {{ config("app.name")  }}</h4>
+                    <p class="badge-danger bg-orange bg-red-20 rounded rounded-pill text-white">
                         <i class='bx bxs-hand-right bx-tada mr-2 '></i>
                         The activation link will expire 
                         {{ now()->addMonths(1)->toDateString() }}
                     </p>
-                    {{ ddd($event) }}
                 </div>
             </div>
         </div>
