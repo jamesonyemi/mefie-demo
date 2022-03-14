@@ -72,7 +72,7 @@
     background-color: #e97896fa !important;
 }
 
-.bg-orange {
+.bg-orange-btn {
     background-color:  hsl(28, 88%, 56%)
 }
 

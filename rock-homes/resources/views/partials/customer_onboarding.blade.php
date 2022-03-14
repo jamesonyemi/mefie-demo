@@ -12,7 +12,7 @@
                       <h2 class="my-2 ml-5">{{ $success }}</h2>
                     </div>
                     <h4 class="mb-4">Please we've sent you an email to activate your account on {{ config("app.name")  }}</h4>
-                    <p class="badge-danger bg-orange bg-red-20 rounded rounded-pill text-white">
+                    <p class="badge-danger bg-orange-btn bg-red-20 rounded rounded-pill text-white">
                         <i class='bx bxs-hand-right bx-tada mr-2 '></i>
                         The activation link will expire 
                         {{ now()->addMonths(1)->toDateString() }}
