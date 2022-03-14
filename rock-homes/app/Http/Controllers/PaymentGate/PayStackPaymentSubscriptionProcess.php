@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Redirect;
 class PayStackPaymentSubscriptionProcess extends Controller
 {
     //
-    public static function createPlan( $type, $amt, $invoice_limit )
+    public static function createPlan( $type, $amt, $invoice_limit = 1 )
     {
         # code...
         $curl = curl_init();
